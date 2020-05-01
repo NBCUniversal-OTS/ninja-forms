@@ -1,0 +1,54 @@
+.nf-realistic-field.nf-realistic-field--label-left {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+
+    .nf-realistic-field--label {
+        order: 3;
+        width: 35%;
+        text-align: right;
+        padding-top: 5px;
+        padding-right: 10px;
+        word-wrap: break-word;
+
+        .nf-field-label {
+            white-space: normal !important;
+        }
+    }
+
+    .nf-realistic-field--element {
+        order: 4;
+        width: 65%;
+    }    
+
+    .nf-realistic-field--description {
+        order: 5;
+        width: 100%;
+        margin-left: 35%;
+    }
+}
+
+/**
+ * Checkbox
+ */
+
+.nf-field-wrap.checkbox .nf-realistic-field.nf-realistic-field--label-left {
+    .nf-realistic-field--label {
+        order: 3;
+        width: 38%;
+        padding-left: 0;
+        padding-right: 5%;
+        text-align: center;
+    }
+
+    .nf-realistic-field--element {
+        order: 4;
+        width: 58%;
+    }    
+
+    .nf-realistic-field--description {
+        order: 5;
+        width: 100%;
+        margin-left: 38%;
+    }
+}

@@ -36,6 +36,11 @@ class NF_FormBlock {
 			$css_dir . 'nf-form-block-style.css',
 			array( 'wp-edit-blocks' )
 		);
+		wp_register_style(
+			'ninja-forms-block-editor',
+			$css_dir . 'nf-form-block-editor.css',
+			array( 'wp-edit-blocks', 'form-blocks-style' )
+		);
 
 		/**
 		 * we need to get our forms so that the block can build a dropdown
@@ -57,7 +62,7 @@ class NF_FormBlock {
 
 		wp_localize_script( 'ninja-forms-block', 'ninjaFormsBlock', array(
 			'forms' => $forms,
-			'siteUrl' => get_home_url(),
+			'siteUrl' => get_site_url(),
 			'block_logo'     => $block_logo,
 			'thumbnail_logo' => $thumbnail_logo
 		) );
@@ -71,7 +76,7 @@ class NF_FormBlock {
 
 		// check for preview and iframe get parameters
 		if( isset( $_GET[ 'nf_preview_form' ] ) && isset( $_GET[ 'nf_iframe' ] ) ){
-			$form_id = absint( $_GET[ 'nf_preview_form' ] );
+			$form_id = intval( $_GET[ 'nf_preview_form' ] );
 			// Style below: update width and height for particular form
 			?>
 			<style media="screen">

@@ -11,13 +11,10 @@ define( [ 'models/promotionModel' ], function( PromotionModel ) {
        * Display a single promotion - chosen at random.
        */
       initialize: function() {
-        // If we don't have any promotions don't run this function. 
-        if( 'undefined' !== typeof( nfPromotions ) ) {
-          var promotion = nfPromotions[Math.floor(Math.random()*nfPromotions.length)];
-          this.model = new PromotionModel( promotion );
-          // this.listenTo( nfRadio.channel( 'dashboard' ), 'did:something', this.something );
+        var promotion = nfPromotions[Math.floor(Math.random()*nfPromotions.length)];
+        this.model = new PromotionModel( promotion );
+        // this.listenTo( nfRadio.channel( 'dashboard' ), 'did:something', this.something );
       }
-    } 
 
     } );
     return view;

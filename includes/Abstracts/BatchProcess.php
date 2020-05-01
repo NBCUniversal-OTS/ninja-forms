@@ -121,7 +121,7 @@ abstract class NF_Abstracts_BatchProcess
      * @param $type (String) warning or fatal, depending on the error.
      *                       Defaults to warning.
      * 
-     * @since 3.4.11
+     * @since UPDATE_VERSION_ON_MERGE
      */
     public function add_error( $slug, $msg, $type = 'warning' )
     {
@@ -190,7 +190,7 @@ abstract class NF_Abstracts_BatchProcess
      * Method that encodes $this->response and sends the data to the front-end.
      * 
      * @since 3.4.0
-     * @updated 3.4.11
+     * @updated UPDATE_VERSION_ON_MERGE
      * @return  void 
      */
     public function respond()

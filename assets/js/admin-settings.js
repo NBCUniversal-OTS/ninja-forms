@@ -124,23 +124,6 @@ jQuery(document).ready(function($) {
 		).then (function( response ) {
 			formIndex = formIndex + 1;
 			response = JSON.parse( response );
-
-			if(response.data.hasOwnProperty('errors')) {
-				var errors = response.data.errors;
-				var errorMsg = '';
-
-				if (Array.isArray(errors)) {
-					errors.forEach(function(error) {
-						errors += error + "\n";
-					})
-				} else {
-					errors = errors;
-				}
-				console.log('Delete All Data Errors: ', errors);
-				alert(errors);
-				return null;
-			}
-
 			// we expect success and then move to the next form
 			if( response.data.success ) {
 				if( formIndex < nfAdmin.forms.length ) {
@@ -221,7 +204,7 @@ jQuery(document).ready(function($) {
                     	// ...split the url based on the question mark from the query string...
                     	url = url.split( '?' );
                     	// build the downgrade url and redirect the user.
-                    	url[0] = url[0] + '?page=ninja-forms&nf-switcher=rollback&security=' + nfAdmin.nonce;
+                    	url[0] = url[0] + '?page=ninja-forms&nf-switcher=rollback';
                     	window.location.replace( url[0] );
 					}
                 }

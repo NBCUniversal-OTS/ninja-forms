@@ -31,9 +31,7 @@ final class NF_Admin_Menus_Addons extends NF_Abstracts_Submenu
 
     public function get_page_title()
     {
-        $title = '<span style="color:#84cc1e">' . esc_html__( 'Add-Ons', 'ninja-forms' ) . '</span>'; 
-
-        return $title;
+        return __( 'Add-Ons', 'ninja-forms' );
     }
 
     public function get_capability()
