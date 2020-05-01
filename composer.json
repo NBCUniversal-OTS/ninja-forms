@@ -1,0 +1,9 @@
+{
+    "scripts": {
+        "test": "vendor/bin/phpunit --bootstrap tests-bootstrap.php tests/includes/"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^7",
+    	"lucatume/wp-browser": "2.2"
+    }
+}
