@@ -1,0 +1,14 @@
+.nf-realistic-field.nf-realistic-field--label-hidden {
+    display: flex;
+    flex-direction: column;
+
+    .nf-realistic-field--label {
+        display: none;
+    }
+    .nf-realistic-field--description {
+        order: 4;
+    }
+    .nf-realistic-field--element {
+        order: 3;
+    }
+}
