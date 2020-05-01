@@ -20,7 +20,7 @@
         pointer: cursor;
         position: absolute;
     }
-    .nf-list-options {
+    .nf-list-options, .nf-listimage-options {
         input[type=text] {
             + .merge-tags {
                 top: 12px;
@@ -40,7 +40,8 @@ label.has-merge-tags {
         right: 12px;
     }
 }
-.nf-list-options {
+
+.nf-list-options, .nf-listimage-options {
     label.has-merge-tags {
         .merge-tags {
             top: 12px;
@@ -135,6 +136,7 @@ label.has-merge-tags {
 
     .merge-tag-sections {
         background-color: #DBDDDD;
+        min-width: 135px;
         ul {
             margin: 0;
             li {

@@ -104,6 +104,7 @@ define( [], function() {
 			// Turn our formData model into an object
 			var data = JSON.parse( JSON.stringify( formData ) );
 			data.settings.formContentData = formContentData;
+
 			/**
 			 * Prepare fields for submission.
 			 */

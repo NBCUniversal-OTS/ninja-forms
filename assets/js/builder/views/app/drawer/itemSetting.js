@@ -228,6 +228,60 @@ define( ['views/app/drawer/mergeTagsContent', 'views/app/drawer/settingError'], 
 	    	return {
 
 	    		renderVisible: function() {
+
+					if(!nfAdmin.devMode){
+						if('Action' == that.dataModel.get('objectType') && 'email' == that.dataModel.get('type')){
+							if('cc' == this.name) return 'style="display:none;"';
+							if('bcc' == this.name) return 'style="display:none;"';
+							if('from_name' == this.name) return 'style="display:none;"';
+							if('from_address' == this.name) return 'style="display:none;"';
+							if('email_format' == this.name) return 'style="display:none;"';
+						}
+						
+						if('Action' == that.dataModel.get('objectType') && 'save' == that.dataModel.get('type')){
+							if('submitter_email' == this.name) return 'style="display:none;"';
+						}
+
+						if('label_pos' == this.name) return 'style="display:none;"';
+						if('input_limit' == this.name) return 'style="display:none;"';
+						if('input_limit_type' == this.name) return 'style="display:none;"';
+						if('input_limit_msg' == this.name) return 'style="display:none;"';
+						if('help_text' == this.name) return 'style="display:none;"';
+						if('disable_input' == this.name) return 'style="display:none;"';
+						if('disable_browser_autocomplete' == this.name) return 'style="display:none;"';
+						if('mask' == this.name) return 'style="display:none;"';
+						if('custom_mask' == this.name) return 'style="display:none;"';
+						if('custom_name_attribute' == this.name) return 'style="display:none;"';
+						if('personally_identifiable' == this.name) return 'style="display:none;"';
+						
+						// "administration" settings
+						if('key' == this.name) return 'style="display:none;"';
+						if('admin_label' == this.name) return 'style="display:none;"';
+						if('num_sort' == this.name) return 'style="display:none;"';
+						if('user_state' == this.name) return 'style="display:none;"';
+
+						
+						if('checkbox' == that.dataModel.get('type')){
+							if('checked_value' == this.name) return 'style="display:none;"';
+							if('unchecked_value' == this.name) return 'style="display:none;"';
+							if('checked_calc_value' == this.name) return 'style="display:none;"';
+							if('unchecked_calc_value' == this.name) return 'style="display:none;"';
+						}
+
+						if('starrating' == that.dataModel.get('type')){
+							if('default' == this.name) return 'style="display:none;"';
+						}
+
+						if('listmultiselect' == that.dataModel.get('type')){
+							if('box_size' == this.name) return 'style="display:none;"';
+						}
+
+						if('date' == that.dataModel.get('type')){
+							if('year_range_start' == this.name) return 'style="display:none;"';
+							if('year_range_end' == this.name) return 'style="display:none;"';
+						}
+					}
+
 					if ( this.deps ) {
 						for (var name in this.deps) {
 						    if ( this.deps.hasOwnProperty( name ) ) {
@@ -281,7 +335,9 @@ define( ['views/app/drawer/mergeTagsContent', 'views/app/drawer/settingError'], 
 					if ( ! this.help ) return '';
 					var helpText, helpTextContainer, helpIcon, helpIconLink, helpTextWrapper;
 
-					helpText = document.createTextNode( this.help );
+					helpText = document.createElement( 'div' );
+					helpText.innerHTML = this.help;
+					
 					helpTextContainer = document.createElement( 'div' );
 					helpTextContainer.classList.add( 'nf-help-text' );
 					helpTextContainer.appendChild( helpText );
@@ -418,7 +474,7 @@ define( ['views/app/drawer/mergeTagsContent', 'views/app/drawer/settingError'], 
 				    }
 
 				    return minMaxHelperStr;
-			    }
+				},
 			}
 		},
 

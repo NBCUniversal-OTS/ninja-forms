@@ -32,6 +32,10 @@
     color: #999;
     font-size: 15px;
 }
+.nf-public-link {
+    color: #999;
+    font-size: 15px;
+}
 .nf-mobile-menu {
     background: $cta_color;
     border-radius: 4px;
@@ -120,7 +124,7 @@
     .jBox-wrapper.import-options.jBox-pointerPosition-top.jBox-closeButton-box:before {
         right: 10px;
     }
-    .nf-list-options {
+    .nf-list-options, .nf-listimage-options {
         padding-bottom: 20px;
         .nf-add-new {
             margin-left: 20px;

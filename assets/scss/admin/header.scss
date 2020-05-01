@@ -58,6 +58,14 @@
     }
     .nf-cancel {
         float: right;
+        margin-right: 60px;
+        padding: 8px 0;
+        .dashicons {
+            font-size: 30px;
+        }
+    }
+    .nf-public-link {
+        float: right;
         margin-right: 30px;
         padding: 8px 0;
         .dashicons {

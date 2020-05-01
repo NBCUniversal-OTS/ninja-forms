@@ -16,6 +16,8 @@ define( [
 	'views/actions/drawer/addAction',
 	'views/app/drawer/contentViewChanges',
 	'views/app/drawer/headerViewChanges',
+	'views/app/drawer/contentPublicLink',
+	'views/app/drawer/headerPublicLink',
 	'views/app/drawer/contentNewForm',
 	'views/app/drawer/headerNewForm'
 	], function(
@@ -26,6 +28,8 @@ define( [
 		addActionView,
 		viewChangesView,
 		viewChangesHeaderView,
+		publicLinkView,
+		publicLinkHeaderView,		
 		newFormView,
 		newFormHeaderView,
 		mobileItemControlsView
@@ -82,6 +86,18 @@ define( [
 
 					getContentView: function( data ) {
 						return new viewChangesView( data );
+					}
+				},
+				{
+					id: 'publicLink',
+
+					// getHeaderView() is defined by default, but we need to override it for the publicLink drawer.
+					getHeaderView: function( data ) {
+						return new publicLinkHeaderView( data );
+					},
+
+					getContentView: function( data ) {
+						return new publicLinkView( data );
 					}
 				},
 				{

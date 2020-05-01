@@ -92,6 +92,23 @@ define( [], function() {
 					jQuery.post(ajaxurl, data)
 						.done(function (response) {
 							var res = JSON.parse(response);
+
+							if (res.data.hasOwnProperty('errors')) {
+								var errors = res.data.errors;
+								var errorMsg = '';
+
+								if (Array.isArray(errors)) {
+									errors.forEach(function(error) {
+										errors += error + "\n";
+									})
+								} else {
+									errors = errors;
+								}
+								console.log('Maybe Delete Field  Errors: ', errors);
+								alert(errors);
+								return null;
+							}
+
 							if (res.data.field_has_data) {
 								// if it does, show warning modal
 								that.doDeleteFieldModal(e, dataModel);

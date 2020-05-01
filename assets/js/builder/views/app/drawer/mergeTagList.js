@@ -24,37 +24,12 @@ define( [ 'views/app/drawer/mergeTag' ], function( mergeTagView ) {
                 return section == child.get( 'section' );
             }
 
-            /**
-             * TODO: This is a wonky fix for removing Product and Quantity fields from calcuation merge tags.
-             * Merge tags don't respect the "exclude" merge tag settings.
-             * Ultimately, the fix might include updating merge tags to respect those settings.
-             *
-             * If we've been passed a calc value, then set our object calc tracker to true.
-             */
             if ( calc ) {
                 this.calc = true;
             }
 
             if ( this.calc ) {
-                /**
-                 * Remove any Product and Quantity fields if we are in a calculation.
-                 * Get a list of all fields, then filter out Product and Quantity fields.
-                 */
-                var fieldCollection = nfRadio.channel( 'fields' ).request( 'get:collection' );
-                // Stores the keys of product and quantity fields.
-                var fieldsToRemove = [];
-                // Grab our product fields.
-                var productFields = fieldCollection.where( { 'type': 'product' } );
-                // Grab our quantity fields.
-                var quantityFields = fieldCollection.where( { 'type': 'quantity' } );
-                // Loop over product fields, adding their key to our tracker.
-                _.each( productFields, function( field ) {
-                    fieldsToRemove.push( '{field:' + field.get( 'key' ) + '}' );
-                } );
-                // Loop over quantity fields, adding their key to our tracker.
-                _.each( quantityFields, function( field ) {
-                    fieldsToRemove.push( '{field:' + field.get( 'key' ) + '}' );
-                } );
+                var fieldsToRemove = this.excludeFromCalcs();
 
                 /**
                  * Filters our merge tags.
@@ -70,31 +45,8 @@ define( [ 'views/app/drawer/mergeTag' ], function( mergeTagView ) {
         },
 
         searchFilter: function( term ){
-            /**
-             * TODO: This is a wonky fix for removing Product and Quantity fields from calcuation merge tags.
-             * Merge tags don't respect the "exclude" merge tag settings.
-             * Ultimately, the fix might include updating merge tags to respect those settings.
-             */
             if ( this.calc ) {
-                /**
-                 * Remove any Product and Quantity fields if we are in a calculation.
-                 * Get a list of all fields, then filter out Product and Quantity fields.
-                 */
-                var fieldCollection = nfRadio.channel( 'fields' ).request( 'get:collection' );
-                // Stores the keys of product and quantity fields.
-                var fieldsToRemove = [];
-                // Get all of our product fields.
-                var productFields = fieldCollection.where( { 'type': 'product' } );
-                // Get all of our quantity fields.
-                var quantityFields = fieldCollection.where( { 'type': 'quantity' } );
-                // Loop over product fields, adding their key to our tracker.
-                _.each( productFields, function( field ) {
-                    fieldsToRemove.push( '{field:' + field.get( 'key' ) + '}' );
-                } );
-                // Loop over quantity fields, adding their key to our tracker.
-                _.each( quantityFields, function( field ) {
-                    fieldsToRemove.push( '{field:' + field.get( 'key' ) + '}' );
-                } );
+                var fieldsToRemove = this.excludeFromCalcs();
             }
 
             this.filter = function( child, index, collection ){
@@ -110,6 +62,30 @@ define( [ 'views/app/drawer/mergeTag' ], function( mergeTagView ) {
             this.render();
             nfRadio.channel( 'merge-tags' ).trigger( 'after:filtersearch' );
 
+        },
+
+        /**
+         * TODO: This is a wonky fix for removing Product and Quantity fields from calcuation merge tags.
+         * Merge tags don't respect the "exclude" merge tag settings.
+         * Ultimately, the fix might include updating merge tags to respect those settings.
+         */
+        excludeFromCalcs: function(){
+            /**
+             * Remove any unwanted fields if we are in a calculation.
+             * Get a list of all fields, then filter out unwanted fields.
+             */
+            var fieldCollection = nfRadio.channel( 'fields' ).request( 'get:collection' );
+            // Stores the keys of unwanted fields.
+            var fieldsToRemove = [];
+            // Declare blacklisted field types.
+            var blacklist = ['product', 'quantity', 'total', 'shipping', 'date'];
+            // Remove them from the merge tag selection box.
+            _.each( fieldCollection.models, function( model ) {
+                if ( -1 != blacklist.indexOf( model.get('type') ) ) {
+                    fieldsToRemove.push( '{field:' + model.get( 'key' ) + '}' );
+                }
+            });
+            return fieldsToRemove;
         }
     });
 

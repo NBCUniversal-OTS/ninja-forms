@@ -7,6 +7,7 @@ define(
 		'controllers/changeDate',
 		'controllers/fieldCheckbox',
 		'controllers/fieldCheckboxList',
+		'controllers/fieldImageList',
 		'controllers/fieldRadio',
 		'controllers/fieldNumber',
 		'controllers/mirrorField',
@@ -29,6 +30,7 @@ define(
 		'controllers/fieldRecaptcha',
 		'controllers/fieldHTML',
 		'controllers/helpText',
+		'controllers/fieldTextbox',
 		'controllers/fieldTextareaRTE',
 		'controllers/fieldStarRating',
 		'controllers/fieldTerms',
@@ -47,6 +49,7 @@ define(
 		ChangeDate,
 		FieldCheckbox,
 		FieldCheckboxList,
+		FieldImageList,
 		FieldRadio,
 		FieldNumber,
 		MirrorField,
@@ -69,6 +72,7 @@ define(
 		FieldRecaptcha,
 		FieldHTML,
 		HelpText,
+		FieldTextbox,
 		FieldTextareaRTE,
 		FieldStarRating,
 		FieldTerms,
@@ -94,6 +98,7 @@ define(
 				 */
 				new FieldCheckbox();
 				new FieldCheckboxList();
+				new FieldImageList();
 				new FieldRadio();
 				new FieldNumber();
 				new FieldSelect();
@@ -103,6 +108,7 @@ define(
 				new FieldRecaptcha();
 				new FieldHTML();
 				new HelpText();
+				new FieldTextbox();
 				new FieldTextareaRTE();
 				new FieldStarRating();
 				new FieldTerms();

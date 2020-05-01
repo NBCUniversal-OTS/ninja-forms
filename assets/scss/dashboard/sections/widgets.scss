@@ -45,6 +45,7 @@
     .pricing-price {
       font-size: 24px;
       font-weight: bold;
+      padding: 5px 0;
     }
 
   }
@@ -64,6 +65,14 @@
     ul {
       list-style: disc;
       margin-left: 20px;
+      padding-left: 20px;
+    }
+
+    hr {
+      margin-top: 10px;
+      margin-bottom: 10px;
+      border: 0;
+      border-top: 1px solid #424242;
     }
 
     .fa {
@@ -82,13 +91,14 @@
   }
 
 }
+ 
 
 .widget-plan-notice {
 
   text-align: center;
 
   .widget-title {
-    font-size: 26px;
+    font-size: 32px;
     font-weight: bold;
     margin: 0 0 10px 0;
     text-align: center;

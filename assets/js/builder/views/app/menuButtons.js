@@ -65,18 +65,22 @@ define( [], function() {
 	    		},
 
 	    		/**
-	    		 * If our app isn't clean, render our 'viewChanges' button.
+	    		 * [DEPRECATED] If our app isn't clean, render our 'viewChanges' button.
 	    		 * @since  version
 	    		 * @return {[type]} [description]
 	    		 */
 	    		maybeRenderCancel: function() {
-	    			if ( ! nfRadio.channel( 'app' ).request( 'get:setting', 'clean' ) ) {
-	    				var viewChanges = nfRadio.channel( 'app' ).request( 'get:template',  '#tmpl-nf-app-header-view-changes' );
-	    				return viewChanges( this );
-	    			} else {
-	    				return '';
-	    			}
+					return '';
 				},
+
+	    		renderPublicLink: function() {
+						// Don't show public link if the form has a temp ID
+						var formModel = Backbone.Radio.channel('app').request('get:formModel');
+						if (isNaN(formModel.get('id'))) { return };
+						// Otherwise, display normally
+	    			var publicLink = nfRadio.channel( 'app' ).request( 'get:template',  '#tmpl-nf-app-header-public-link' );
+	    				return publicLink( this );
+	    		},
 			};
 		},
 
@@ -91,7 +95,8 @@ define( [], function() {
 		 */
 		events: {
 			'click .publish': 'clickPublish',
-			'click .viewChanges': 'clickViewChanges'
+			'click .viewChanges': 'clickViewChanges',
+			'click .publicLink': 'clickPublicLink',
 		},
 
 		/**
@@ -116,6 +121,10 @@ define( [], function() {
 		 */
 		clickViewChanges: function( e ) {
 			nfRadio.channel( 'app' ).trigger( 'click:viewChanges', e );
+		},
+
+		clickPublicLink: function( e ) {
+			nfRadio.channel( 'app' ).trigger( 'click:publicLink', e );
 		},
 
 		bounceIcon: function( changeModel ) {

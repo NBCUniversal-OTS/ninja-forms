@@ -214,7 +214,6 @@ define(['models/calcCollection'], function( CalcCollection ) {
 			 */
 			var value = nfRadio.channel( fieldModel.get( 'type' ) ).request( 'get:calcValue', fieldModel );
 
-
 			var localeConverter = new nfLocaleConverter(nfi18n.siteLocale, nfi18n.thousands_sep, nfi18n.decimal_point);
 			
 

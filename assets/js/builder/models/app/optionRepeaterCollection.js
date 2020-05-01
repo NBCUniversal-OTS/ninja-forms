@@ -9,7 +9,9 @@
 define( ['models/app/optionRepeaterModel'], function( listOptionModel ) {
 	var collection = Backbone.Collection.extend( {
 		model: listOptionModel,
-		comparator: 'order',
+		comparator: function( model ){
+			return parseInt( model.get( 'order' ) );
+		},
 
 		initialize: function( models, options ) {
 			// Listen to the 'sort' event

@@ -92,7 +92,7 @@ define( ['views/app/drawer/optionRepeaterOption', 'views/app/drawer/optionRepeat
 			var importLink = jQuery( this.el ).find( '.nf-open-import-tooltip' );
 			var jBox = jQuery( importLink ).jBox( 'Tooltip', {
                 title: '<h3>Please enter your options below:</h3>',
-                content: jQuery( this.el ).find( '.nf-import-options' ),
+                content: ( "1" == nfAdmin.devMode ? jQuery( this.el ).find( '.nf-dev-import-options' ) : jQuery( this.el ).find( '.nf-import-options' ) ),
                 trigger: 'click',
                 closeOnClick: 'body',
                 closeButton: 'box',
@@ -161,10 +161,14 @@ define( ['views/app/drawer/optionRepeaterOption', 'views/app/drawer/optionRepeat
                         helpTextWrapper.appendChild( helpIconLink );
                         helpTextWrapper.appendChild( helpTextContainer );
 
-                        // Append the help text to the 'value' header.
-	                    if ( -1 == that.model.get('columns').value.header.indexOf( helpTextWrapper.innerHTML ) ) {
-		                    that.model.get('columns').value.header += helpTextWrapper.innerHTML;
-	                    }
+						// Append the help text to the 'value' header.
+						if('undefined' !== typeof that.model.get('columns') ){
+							if('undefined' !== typeof that.model.get('columns').value ){
+								if ( -1 == that.model.get('columns').value.header.indexOf( helpTextWrapper.innerHTML ) ) {
+									that.model.get('columns').value.header += helpTextWrapper.innerHTML;
+								}
+							}
+						}
                     }
 	    			var columns, beforeColumns, afterColumns;
 
@@ -172,6 +176,11 @@ define( ['views/app/drawer/optionRepeaterOption', 'views/app/drawer/optionRepeat
 
 	    			columns = document.createElement( 'span' );
 	    			columns.appendChild( beforeColumns );
+
+					if(!nfAdmin.devMode){
+						delete this.columns.value;
+						delete this.columns.calc;
+					}
 
 	    			_.each( this.columns, function( col ) {
 	    				var headerText, headerContainer;

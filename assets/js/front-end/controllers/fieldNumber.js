@@ -7,9 +7,9 @@ define([], function() {
 
         maybeMinDefault: function( model ) {
 
-            if( '' == model.get( 'value' ) ){
+            if( '' == model.get( 'value' ) && '' == model.get( 'placeholder' ) ){
                 var min = model.get( 'num_min' );
-                model.set( 'value', min );
+                model.set( 'placeholder', min );
             }
         },
 

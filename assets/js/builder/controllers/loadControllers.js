@@ -58,6 +58,7 @@ define(
 		'controllers/app/perfectScroll',
 		'controllers/app/getNewSettingGroupCollection',
 		'controllers/app/settingMedia',
+		'controllers/app/publicLink',
 		/*
 		 * Fields domain controllers
 		 */
@@ -70,6 +71,7 @@ define(
 		'controllers/fields/sortable',
 		'controllers/fields/data',
 		'controllers/app/optionRepeater',
+		'controllers/app/imageOptionRepeater',
 		'controllers/fields/editActive',
 		'controllers/fields/fieldSettings',
 		'controllers/fields/fieldCreditCard',
@@ -165,6 +167,7 @@ define(
 		PerfectScroll,
 		GetNewSettingGroupCollection,
 		SettingMedia,
+		PublicLink,
 		/*
 		 * Fields domain controllers
 		 */
@@ -177,6 +180,7 @@ define(
 		MainContentFieldsSortable,
 		FieldData,
 		OptionRepeater,
+		imageOptionRepeater,
 		FieldsEditActive,
 		FieldSettings,
 		FieldCreditCard,
@@ -260,6 +264,7 @@ define(
 				new TrackKeyDown();
 				new PerfectScroll();
 				new GetNewSettingGroupCollection();
+				new PublicLink();
 				// new Pushstate();
 				/*
 				 * Fields domain controllers
@@ -269,7 +274,7 @@ define(
 				 */
 				new Fieldset();
 				new OptionRepeater();
-
+				new imageOptionRepeater();
 				new FieldTypes();
 				new FieldTypeDrag();
 				new FieldStagingDrag();

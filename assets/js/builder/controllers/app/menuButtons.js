@@ -13,6 +13,7 @@ define( [], function() {
 		initialize: function() {
 			this.listenTo( nfRadio.channel( 'app' ), 'click:publish', this.publish );
 			this.listenTo( nfRadio.channel( 'app' ), 'click:viewChanges', this.viewChanges );
+			this.listenTo( nfRadio.channel( 'app' ), 'click:publicLink', this.publicLink );
 		},
 
 		publish: function() {
@@ -22,6 +23,10 @@ define( [], function() {
 		viewChanges: function() {
 			var changeCollection = nfRadio.channel( 'changes' ).request( 'get:collection' );
 			nfRadio.channel( 'app' ).request( 'open:drawer', 'viewChanges', { collection: changeCollection } );
+		},
+
+		publicLink: function() {
+			nfRadio.channel( 'app' ).request( 'open:drawer', 'publicLink' );
 		}
 
 	});

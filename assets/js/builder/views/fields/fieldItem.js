@@ -37,11 +37,14 @@ define( ['views/app/itemControls', 'views/fields/preview/element', 'views/fields
 			if('spam' == type) type = 'input';
 			if('date' == type) type = 'input';
 			if('confirm' == type) type = 'input';
+			if('password' == type) type = 'input';
+			if('passwordconfirm' == type) type = 'input';
 			if('quantity' == type) type = 'number';
 			if('terms' == type) type = 'listcheckbox';
 			if('liststate' == type) type = 'listselect';
 			if('listcountry' == type) type = 'listselect';
 			if('listmultiselect' == type) type = 'listselect';
+			if('save' == type) type = 'submit';
 
 			// Only show preview / realisitic fields when not `html`, `hidden`, `note`, or `recaptcha`.
 			var previewFieldTypeBlacklist = ['html', 'hidden', 'note', 'recaptcha'];
@@ -50,7 +53,7 @@ define( ['views/app/itemControls', 'views/fields/preview/element', 'views/fields
 				this.previewElement.show( new previewElementView( { model: this.model } ) );
 
 				// Only show the preview label when not `submit`, or `hr`.
-				var showLabelFieldTypeBlacklist = ['submit', 'hr'];
+				var showLabelFieldTypeBlacklist = ['submit', 'save', 'hr'];
 				if(-1 == showLabelFieldTypeBlacklist.indexOf(this.model.get('type'))) {
 					this.previewLabel.show( new previewLabelView( { model: this.model } ) );
 				}

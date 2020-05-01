@@ -173,6 +173,12 @@
             right: 10px;
         }
     }
+    .nf-select{
+        select{
+            display: block;
+            max-width: 100%;
+        }
+    }
 }
 .nf-one-half,
 .nf-one-third {

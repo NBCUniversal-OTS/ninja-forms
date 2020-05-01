@@ -15,12 +15,19 @@ define( ['models/fieldErrorCollection'], function( fieldErrorCollection ) {
 		},
 
 		initialize: function() {
+			var type = this.get('type');
+
 			this.set( 'formID', this.collection.options.formModel.get( 'id' ) );
 			this.listenTo( nfRadio.channel( 'form-' + this.get( 'formID' ) ), 'reset', this.resetModel );
 
     		this.bind( 'change', this.changeModel, this );
     		this.bind( 'change:value', this.changeValue, this );
     		this.set( 'errors', new fieldErrorCollection() );
+
+			if (type === 'listimage') {
+				this.get = this.listimageGet;
+				this.set = this.listimageSet;
+			}
 
     		/*
 			 * Trigger an init event on two channels:
@@ -47,6 +54,21 @@ define( ['models/fieldErrorCollection'], function( fieldErrorCollection ) {
 			 * Before we submit our form, send out a message so that this field can be modified if necessary.
 			 */
 			this.listenTo( nfRadio.channel( 'form-' + this.get( 'formID' ) ), 'before:submit', this.beforeSubmit );
+		},
+
+		listimageGet: function(attr) {
+            if(attr === 'options') {
+					attr = 'image_options';
+			}
+
+            return Backbone.Model.prototype.get.call(this, attr);
+		},
+		
+		listimageSet: function(attributes, options) {
+			if ('options' === attributes) {
+				attributes = 'image_options';
+			}
+			return Backbone.Model.prototype.set.call(this, attributes, options);
 		},
 
 		changeModel: function() {

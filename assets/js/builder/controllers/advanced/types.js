@@ -21,6 +21,11 @@ define( [
 			// Create our field type collection
 			this.collection = new TypeCollection( formSettingTypeData );
 
+			if(!nfAdmin.devMode){
+				var calculations = this.collection.where({id:'calculations'});
+				this.collection.remove(calculations);
+			}
+
 			// Respond to requests to get field type, collection, settings, and sections
 			nfRadio.channel( 'settings' ).reply( 'get:type', this.getType, this );
 			nfRadio.channel( 'settings' ).reply( 'get:typeCollection', this.getCollection, this );

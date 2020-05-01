@@ -31,7 +31,7 @@ define( ['views/fields/drawer/addSavedField'], function( addSavedFieldView ) {
 			var that = this;
 			this.addSavedjBox = new jBox( 'Tooltip', {
 				trigger: 'click',
-				title: 'Add to Saved Fields',
+				title: 'Add to Favorite Fields',
 				position: {
 					x:'left',
 					y:'center'

@@ -6,6 +6,18 @@ define([], function() {
 
 		submitErrors: function( response, textStatus, jqXHR, formID ) {
 
+			// Check for nonce error.
+			if ( _.size( response.errors.nonce ) > 0 ) {
+				if( 'undefined' != typeof response.errors.nonce.new_nonce && 'undefined' != typeof response.errors.nonce.nonce_ts ) {
+					// Update nonce from response.
+					nfFrontEnd.ajaxNonce = response.errors.nonce.new_nonce;
+					nfFrontEnd.nonce_ts = response.errors.nonce.nonce_ts;
+					// Re-submit form.
+					var formModel = nfRadio.channel( 'app' ).request( 'get:form', formID );
+					nfRadio.channel( 'form-' + formID ).request( 'submit', formModel );
+				}
+			}
+
 			if ( _.size( response.errors.fields ) > 0 ) {
 				_.each( response.errors.fields, function( data, fieldID ) {
                     if ( typeof( data ) === 'object' ) {

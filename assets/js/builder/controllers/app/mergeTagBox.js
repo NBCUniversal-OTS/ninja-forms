@@ -197,8 +197,12 @@ define( [
 	            // change it to render above the field
 
 	            if ( ( tagBoxY + tagBoxHeight ) > windowHeight ) {
-		            tagBoxY = posY - tagBoxHeight;
-	            }
+                    tagBoxY = posY - tagBoxHeight;
+                }
+
+                if ( 0 > tagBoxY ) {
+                    tagBoxY = posY;
+                }
 
                 jQuery( '#merge-tags-box' ).css( 'top', tagBoxY );
 
@@ -331,6 +335,10 @@ define( [
         mergeTagsButtonClick: function( e ){
             var $this = jQuery( this );
 
+            if ($this.hasClass('open-media-manager')) {
+                return;
+            }
+
             if( $this.siblings().hasClass( 'merge-tag-focus' ) ){
                 nfRadio.channel( 'mergeTags' ).request( 'insert:tag', '' );
                 jQuery( '#merge-tags-box' ).css( 'display', 'none' );
@@ -436,6 +444,10 @@ define( [
 	        if ( ( tagBoxY + tagBoxHeight ) > windowHeight ) {
 		        tagBoxY = posY - tagBoxHeight;
 	        }
+
+            if ( 0 > tagBoxY ) {
+                tagBoxY = posY;
+            }
 
             jQuery( '#merge-tags-box' ).css( 'top', tagBoxY );
 

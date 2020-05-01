@@ -13,7 +13,7 @@ define( ['models/fields/typeSectionCollection'], function( fieldTypeSectionColle
 			this.collection = new fieldTypeSectionCollection( [
 				{ 
 					id: 'saved',
-					nicename: 'Saved Fields',
+					nicename: 'Favorite Fields',
 					classes: 'nf-saved',
 					fieldTypes: []
 				}

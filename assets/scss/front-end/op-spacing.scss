@@ -19,7 +19,7 @@
         padding: 12px;
     }
     input.ninja-forms-field,
-    select.ninja-forms-field,
+    select.ninja-forms-field:not([multiple]),
     .listselect-wrap .nf-field-element div {
         height: 50px;
     }
