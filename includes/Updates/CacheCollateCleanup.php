@@ -254,7 +254,6 @@ class NF_Updates_CacheCollateCleanup extends NF_Abstracts_RequiredUpdate
      * Function to perform a simple, single-step delete of orphan data.
      * 
      * @since 3.4.0
-     * @updated 3.4.11
      */
     private function do_easy_delete()
     {
@@ -262,11 +261,7 @@ class NF_Updates_CacheCollateCleanup extends NF_Abstracts_RequiredUpdate
         $sql = "DELETE FROM `{$this->stage[ 'table' ]}`
                 WHERE `parent_id` NOT IN(
                     SELECT `id` FROM `{$this->stage[ 'parent' ]}`
-                )";
-        // Protect favorite fields from being removed.
-        if ( false !== strpos( $this->stage[ 'table' ], 'nf3_fields' ) ) {
-            $sql .= " AND `parent_id` <> 0";
-        }
+                );";
         $this->query( $sql );
         // Confirm that this stage is complete.
         $this->stage_complete = true;
@@ -276,7 +271,6 @@ class NF_Updates_CacheCollateCleanup extends NF_Abstracts_RequiredUpdate
      * Function to perform a multi-step delete of orphan data.
      * 
      * @since 3.4.0
-     * @updated 3.4.11
      */
     private function do_step_delete()
     {
@@ -286,9 +280,6 @@ class NF_Updates_CacheCollateCleanup extends NF_Abstracts_RequiredUpdate
         if ( isset( $this->stage[ 'last' ] ) ) {
             // Make sure we exclude anything before it from the result.
             $sub_sql .= "WHERE `parent_id` > " . $this->stage[ 'last' ] . " ";
-        } // Protect favorite fields from being removed.
-        elseif ( false !== strpos( $this->stage[ 'table' ], 'nf3_fields' ) ) {
-            $sub_sql .= "WHERE `parent_id` <> 0 ";
         }
         $sub_sql .= "ORDER BY `parent_id` ASC
                      LIMIT {$this->divisor};";
@@ -320,10 +311,10 @@ class NF_Updates_CacheCollateCleanup extends NF_Abstracts_RequiredUpdate
         // If we've not already determined the limit of this table...
         if ( ! isset( $this->stage[ 'max' ] ) ) {
             // Fetch the maximum value.
-            $sql = "SELECT MAX( `parent_id` ) as target FROM `{$this->stage[ 'table' ]}`";
+            $sql = "SELECT MAX( `parent_id` ) FROM `{$this->stage[ 'table' ]}`";
             $result = $this->db->get_results( $sql, 'ARRAY_A' );
             // Save a reference to it.
-            $this->stage[ 'max' ] = intval( $result[ 0 ][ 'target' ] );
+            $this->stage[ 'max' ] = intval( $result[ 0 ][ 'parent_id' ] );
         }
         // If our last record is equal to our maximum record...
         if ( $this->stage[ 'last' ] == $this->stage[ 'max' ] ) {
@@ -420,13 +411,7 @@ class NF_Updates_CacheCollateCleanup extends NF_Abstracts_RequiredUpdate
                  LIMIT {$this->divisor};";
         $results = $this->db->get_results( $sql, 'ARRAY_A' );
         // Count them.
-        $count = count( $results );
-        // Get the last result.
-        if ( 0 < $count ) {
-            $last = end( $results );
-            $last = $last[ 'meta_id' ];
-            reset( $results );
-        }
+        $count = count( $result );
         // Get all fields associated with this form.
         $sql = "SELECT id FROM `{$this->db->prefix}nf3_fields` WHERE parent_id = " . intval( $form[ 'id' ] ) . ";";
         $fields = $this->db->get_results( $sql, 'ARRAY_A' );
@@ -479,8 +464,6 @@ class NF_Updates_CacheCollateCleanup extends NF_Abstracts_RequiredUpdate
             $this->running[ 0 ][ 'current' ] += 1;
         } // Otherwise... (We need to continue.)
         else {
-            // Record where we stopped.
-            $form[ 'last' ] = intval( $last );
             // Put our form back on the stack.
             array_push( $this->stage[ 'forms' ], $form );
         }

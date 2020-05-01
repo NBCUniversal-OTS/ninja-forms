@@ -18,9 +18,9 @@ final class NF_Admin_Menus_Dashboard extends NF_Abstracts_Submenu
     public function get_page_title()
     {
         if( isset( $_GET[ 'form_id' ] ) ) {
-            return esc_html__( 'Form Builder', 'ninja-forms' );
+            return __( 'Form Builder', 'ninja-forms' );
         }
-        return esc_html__( 'Dashboard', 'ninja-forms' );
+        return __( 'Dashboard', 'ninja-forms' );
     }
 
     public function get_capability()
@@ -32,4 +32,5 @@ final class NF_Admin_Menus_Dashboard extends NF_Abstracts_Submenu
     {
         // This section intentionally left blank.
     }
+
 } // End Class NF_Admin_Settings

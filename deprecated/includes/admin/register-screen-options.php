@@ -58,14 +58,12 @@ function ninja_forms_save_screen_option_tabs(){
 	$current_page = $_REQUEST['page'];
 	$opt = nf_get_settings();
 	if(is_array($_POST['ninja-forms-tab'])){
-		$tabs = sanitize_text_field($_POST['ninja-forms-tab']);
-		foreach($tabs as $slug => $val){
+		foreach($_POST['ninja-forms-tab'] as $slug => $val){
 			$opt['screen_options']['tab'][$slug]['visible'] = $val;
 		}
 	}
 	if(is_array($_POST['ninja-forms-sidebar'])){
-		$sidebars = sanitize_text_field($_POST['ninja-forms-sidebar']);
-		foreach($sidebars as $slug => $val){
+		foreach($_POST['ninja-forms-sidebar'] as $slug => $val){
 			$opt['screen_options']['tab'][$current_tab]['sidebars'][$slug]['visible'] = $val;
 		}
 	}

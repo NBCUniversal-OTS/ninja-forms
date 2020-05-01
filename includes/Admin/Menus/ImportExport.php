@@ -39,7 +39,7 @@ final class NF_Admin_Menus_ImportExport extends NF_Abstracts_Submenu
 
     public function get_page_title()
     {
-        return esc_html__( 'Import / Export', 'ninja-forms' );
+        return __( 'Import / Export', 'ninja-forms' );
     }
 
     public function import_form_listener()
@@ -74,8 +74,8 @@ final class NF_Admin_Menus_ImportExport extends NF_Abstracts_Submenu
             }
 
             wp_die(
-                esc_html__( 'There uploaded file is not a valid format.', 'ninja-forms' ) . ' ' . $err_msg,
-                esc_html__( 'Invalid Form Upload.', 'ninja-forms' )
+                __( 'There uploaded file is not a valid format.', 'ninja-forms' ) . ' ' . $err_msg,
+                __( 'Invalid Form Upload.', 'ninja-forms' )
             );
         }
     }
@@ -87,7 +87,7 @@ final class NF_Admin_Menus_ImportExport extends NF_Abstracts_Submenu
         if( ! current_user_can( $capability ) ) return;
 
         if( isset( $_REQUEST[ 'nf_export_form' ] ) && $_REQUEST[ 'nf_export_form' ] ){
-            $form_id = absint($_REQUEST[ 'nf_export_form' ]);
+            $form_id = $_REQUEST[ 'nf_export_form' ];
             Ninja_Forms()->form( $form_id )->export_form();
         }
     }
@@ -114,8 +114,7 @@ final class NF_Admin_Menus_ImportExport extends NF_Abstracts_Submenu
         if( ! current_user_can( apply_filters( 'ninja_forms_admin_export_fields_capabilities', 'manage_options' ) ) ) return;
 
         if( isset( $_REQUEST[ 'nf_export_fields' ] ) && $_REQUEST[ 'nf_export_fields' ] ){
-            $field_ids = (array) $_REQUEST[ 'nf_export_fields' ];
-            $field_ids = array_map('esc_attr', $field_ids);
+            $field_ids = $_REQUEST[ 'nf_export_fields' ];
 
             $fields = array();
             foreach( $field_ids as $field_id ){
@@ -139,13 +138,13 @@ final class NF_Admin_Menus_ImportExport extends NF_Abstracts_Submenu
     public function display()
     {
         $tabs = apply_filters( 'ninja_forms_import_export_tabs', array(
-            'forms' => esc_html__( 'Form', 'ninja-forms' ),
-            'favorite_fields' => esc_html__( 'Favorite Fields', 'ninja-forms' )
+            'forms' => __( 'Form', 'ninja-forms' ),
+            'favorite_fields' => __( 'Favorite Fields', 'ninja-forms' )
             )
         );
 
         $tab_keys = array_keys( $tabs );
-        $active_tab = ( isset( $_GET[ 'tab' ] ) ) ? WPN_Helper::sanitize_text_field($_GET[ 'tab' ]) : reset( $tab_keys );
+        $active_tab = ( isset( $_GET[ 'tab' ] ) ) ? $_GET[ 'tab' ] : reset( $tab_keys );
 
         $this->add_meta_boxes();
 
@@ -166,9 +165,9 @@ final class NF_Admin_Menus_ImportExport extends NF_Abstracts_Submenu
             'ajax_url'                              => admin_url( 'admin-ajax.php' ),
             'batchNonce'                            => wp_create_nonce( 'ninja_forms_batch_nonce' ),
             'i18n'                                  => array(
-                'trashExpiredSubsMessage'           => esc_html__( 'Are you sure you want to trash all expired submissions?', 'ninja-forms' ),
-                'trashExpiredSubsButtonPrimary'     => esc_html__( 'Trash', 'ninja-forms' ),
-                'trashExpiredSubsButtonSecondary'   => esc_html__( 'Cancel', 'ninja-forms' ),
+                'trashExpiredSubsMessage'           => __( 'Are you sure you want to trash all expired submissions?', 'ninja-forms' ),
+                'trashExpiredSubsButtonPrimary'     => __( 'Trash', 'ninja-forms' ),
+                'trashExpiredSubsButtonSecondary'   => __( 'Cancel', 'ninja-forms' ),
             ),
             'builderURL'                            => admin_url( 'admin.php?page=ninja-forms&form_id=' ),
         ));
@@ -191,14 +190,14 @@ final class NF_Admin_Menus_ImportExport extends NF_Abstracts_Submenu
          */
         add_meta_box(
             'nf_import_export_forms_import',
-            esc_html__( 'Import Forms', 'ninja-forms' ),
+            __( 'Import Forms', 'ninja-forms' ),
             array( $this, 'template_import_forms' ),
             'nf_import_export_forms'
         );
 
         add_meta_box(
             'nf_import_export_forms_export',
-            esc_html__( 'Export Forms', 'ninja-forms' ),
+            __( 'Export Forms', 'ninja-forms' ),
             array( $this, 'template_export_forms' ),
             'nf_import_export_forms'
         );
@@ -208,14 +207,14 @@ final class NF_Admin_Menus_ImportExport extends NF_Abstracts_Submenu
          */
         add_meta_box(
             'nf_import_export_favorite_fields_import',
-            esc_html__( 'Import Favorite Fields', 'ninja-forms' ),
+            __( 'Import Favorite Fields', 'ninja-forms' ),
             array( $this, 'template_import_favorite_fields' ),
             'nf_import_export_favorite_fields'
         );
 
         add_meta_box(
             'nf_import_export_favorite_fields_export',
-            esc_html__( 'Export Favorite Fields', 'ninja-forms' ),
+            __( 'Export Favorite Fields', 'ninja-forms' ),
             array( $this, 'template_export_favorite_fields' ),
             'nf_import_export_favorite_fields'
         );
@@ -238,7 +237,7 @@ final class NF_Admin_Menus_ImportExport extends NF_Abstracts_Submenu
     		$selected = '';
 
     		if( isset( $_REQUEST[ 'exportFormId' ] )
-		        && $form->get_id() == absint($_REQUEST[ 'exportFormId' ]) ) {
+		        && $form->get_id() == $_REQUEST[ 'exportFormId' ] ) {
     			$selected = 'selected';
 		    }
     		$forms[] = array(
@@ -301,13 +300,13 @@ final class NF_Admin_Menus_ImportExport extends NF_Abstracts_Submenu
 
                 switch( $field[ 'calc_method' ] ){
                     case 'eq':
-                        $method = esc_html__( 'Equation (Advanced)', 'ninja-forms' );
+                        $method = __( 'Equation (Advanced)', 'ninja-forms' );
                         break;
                     case 'fields':
-                        $method = esc_html__( 'Operations and Fields (Advanced)', 'ninja-forms' );
+                        $method = __( 'Operations and Fields (Advanced)', 'ninja-forms' );
                         break;
                     case 'auto':
-                        $method = esc_html__( 'Auto-Total Fields', 'ninja-forms' );
+                        $method = __( 'Auto-Total Fields', 'ninja-forms' );
                         break;
                     default:
                         $method = '';
@@ -425,33 +424,33 @@ final class NF_Admin_Menus_ImportExport extends NF_Abstracts_Submenu
 
         switch ( $file[ 'error' ] ) {
             case UPLOAD_ERR_INI_SIZE:
-                $error_message = esc_html__( 'The uploaded file exceeds the upload_max_filesize directive in php.ini.', 'ninja-forms' );
+                $error_message = __( 'The uploaded file exceeds the upload_max_filesize directive in php.ini.', 'ninja-forms' );
                 break;
             case UPLOAD_ERR_FORM_SIZE:
-                $error_message = esc_html__( 'The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form.', 'ninja-forms' );
+                $error_message = __( 'The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form.', 'ninja-forms' );
                 break;
             case UPLOAD_ERR_PARTIAL:
-                $error_message = esc_html__( 'The uploaded file was only partially uploaded.', 'ninja-forms' );
+                $error_message = __( 'The uploaded file was only partially uploaded.', 'ninja-forms' );
                 break;
             case UPLOAD_ERR_NO_FILE:
-                $error_message = esc_html__( 'No file was uploaded.', 'ninja-forms' );
+                $error_message = __( 'No file was uploaded.', 'ninja-forms' );
                 break;
             case UPLOAD_ERR_NO_TMP_DIR:
-                $error_message = esc_html__( 'Missing a temporary folder.', 'ninja-forms' );
+                $error_message = __( 'Missing a temporary folder.', 'ninja-forms' );
                 break;
             case UPLOAD_ERR_CANT_WRITE:
-                $error_message = esc_html__( 'Failed to write file to disk.', 'ninja-forms' );
+                $error_message = __( 'Failed to write file to disk.', 'ninja-forms' );
                 break;
             case UPLOAD_ERR_EXTENSION:
-                $error_message = esc_html__( 'File upload stopped by extension.', 'ninja-forms' );
+                $error_message = __( 'File upload stopped by extension.', 'ninja-forms' );
                 break;
             default:
-                $error_message = esc_html__( 'Unknown upload error.', 'ninja-forms' );
+                $error_message = __( 'Unknown upload error.', 'ninja-forms' );
                 break;
         }
 
         $args = array(
-            'title' => esc_html__( 'File Upload Error', 'ninja-forms' ),
+            'title' => __( 'File Upload Error', 'ninja-forms' ),
             'message' => $error_message,
             'debug' => $file,
         );
